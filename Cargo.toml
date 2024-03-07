@@ -1,0 +1,18 @@
+[package]
+name = "random-port"
+description = "Get an available port"
+version = "0.1.0"
+authors = ["Jon Zhang <jonzhang3@163.com>"]
+edition = "2021"
+license = "MIT"
+
+repository = "https://github.com/JonZhang3/random-port"
+readme = "README.md"
+
+keywords = ["random", "port", "network"]
+categories = ["networking", "utilities"]
+
+[dependencies]
+network-interface = "1.1.1"
+rand = "0.8.5"
+thiserror = "1.0.57"

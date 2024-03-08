@@ -1,5 +1,7 @@
 # random-port
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c092db8d8f5a47c7b84c3f73559b28ff)](https://app.codacy.com/gh/JonZhang3/random-port?utm_source=github.com&utm_medium=referral&utm_content=JonZhang3/random-port&utm_campaign=Badge_Grade)
+
 > Get an available port.
 
 ## Install

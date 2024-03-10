@@ -145,6 +145,26 @@ impl PortPicker {
     }
 }
 
+/// Check if a port is free in the local machine.
+/// If the host is not specified, it will check on all local addresses defined in the system.
+///
+/// - `port`: The port to check.
+/// - `host`: The host to check. Can be either an Ipv4 or Ipv6 address.
+/// - `protocol`: The protocol to check. Can be either `Protocol::Tcp`, `Protocol::Udp` or `Protocol::All`.
+pub fn is_free(port: u16, host: Option<String>, protocol: Protocol) -> bool {
+    let mut ip_addrs: HashSet<IpAddr> = HashSet::new();
+    if let Some(host) = host {
+        if let Ok(ip_addr) = host.parse::<IpAddr>() {
+            ip_addrs.insert(ip_addr);
+        } else {
+            return false;
+        }
+    } else {
+        ip_addrs = utils::get_local_hosts();
+    }
+    utils::is_free_in_hosts(port, &ip_addrs, &protocol)
+}
+
 #[cfg(test)]
 mod tests {
 
@@ -159,5 +179,13 @@ mod tests {
         assert!(result.is_ok());
         let port = result.unwrap();
         assert!(port >= 3000 && port <= 4000);
+    }
+
+    #[test]
+    fn test_is_free() {
+        let port = PortPicker::new().pick().unwrap();
+        assert!(is_free(port, None, Protocol::All));
+        // In my macos, port 80 is not free
+        assert!(!is_free(80, None, Protocol::All));
     }
 }
